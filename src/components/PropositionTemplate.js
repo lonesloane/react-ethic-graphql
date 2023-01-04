@@ -1,6 +1,7 @@
 import React from "react";
 import {useParams} from "react-router-dom";
 import {useGetProposition} from "../useRequest";
+import EthicItem from "./EthicItem";
 
 export default function PropositionTemplate() {
     const {partNumber, itemNumber} = useParams();
@@ -11,11 +12,39 @@ export default function PropositionTemplate() {
 
     return (
         isSuccess && (
-            <article className="Proposition">
-                <h1>Proposition</h1>
-                <h1>name: {data.proposition.name}</h1>
-                <h4>type: {data.proposition.type}</h4>
-                <p>text: {data.proposition.text}</p>
+            <article className="Article">
+                <h1>Partie {partNumber} - Proposition: {itemNumber}</h1>
+                <p>{data.proposition.text}</p>
+                { (data.proposition.references != null) &&
+                    <div>
+                        <br/>
+                        {
+                            (!Array.isArray(data.proposition.references) && typeof (data.proposition.references) === 'object') && (
+                                <div>{<EthicItem key={data.proposition.references.uri} uri={data.proposition.references.uri}/>}</div>
+                            )
+                        }
+                        {
+                            (Array.isArray(data.proposition.references) ) && (
+                                <div>{data.proposition.references.map((item) => <EthicItem key={item.uri} uri={item.uri}/>)}</div>
+                            )
+                        }
+                    </div>
+                }
+                { (data.proposition.descendants != null) &&
+                    <div>
+                        <br/>
+                        {
+                            (!Array.isArray(data.proposition.descendants) && typeof (data.proposition.descendants) === 'object') && (
+                                <div>{<EthicItem key={data.proposition.descendants.uri} uri={data.proposition.descendants.uri}/>}</div>
+                            )
+                        }
+                        {
+                            (Array.isArray(data.proposition.descendants) ) && (
+                                <div>{data.proposition.descendants.map((item) => <EthicItem key={item.uri} uri={item.uri}/>)}</div>
+                            )
+                        }
+                    </div>
+                }
             </article>
         )
     )

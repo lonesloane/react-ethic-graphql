@@ -1,7 +1,7 @@
 import React from "react";
 
 import {useGetPropositions} from "../useRequest";
-import Proposition from "./Proposition";
+import PropositionListItem from "./PropositionListItem";
 
 export default function PropositionList() {
     const {data, error, isLoading, isSuccess} = useGetPropositions();
@@ -11,7 +11,7 @@ export default function PropositionList() {
 
     return (
         <div>{
-            isSuccess && data.propositions.map((proposition) => <Proposition key={proposition.name} proposition={proposition}/>)
+            isSuccess && data.propositions.map((proposition) => <PropositionListItem key={proposition.name} proposition={proposition}/>)
         }</div>
     )
 }
