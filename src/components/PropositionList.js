@@ -11,7 +11,9 @@ export default function PropositionList() {
 
     return (
         <div>{
-            isSuccess && data.propositions.map((proposition) => <PropositionListItem key={proposition.name} proposition={proposition}/>)
+            isSuccess && data.propositions.map(
+                (proposition) => <PropositionListItem key={proposition.name} proposition={proposition}/>
+            )
         }</div>
     )
 }
