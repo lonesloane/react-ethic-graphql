@@ -1,7 +1,19 @@
 import React from "react";
 
 import {useGetPropositions} from "../useRequest";
-import PropositionListItem from "./PropositionListItem";
+import {Link} from "react-router-dom";
+
+const PropositionListItem = ({proposition}) => {
+    const {partNumber, itemNumber, text} = proposition;
+
+    return (
+        <article className="Article">
+            <h3>Partie {partNumber} - Proposition {itemNumber}</h3>
+            <p>{text}</p>
+            <Link to={`/proposition/${partNumber}/${itemNumber}`}>Read more &rarr;</Link>
+        </article>
+    )
+};
 
 export default function PropositionList() {
     const {data, error, isLoading, isSuccess} = useGetPropositions();

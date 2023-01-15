@@ -30,6 +30,126 @@ export function useGetItem(uri) {
     });
 }
 
+export function useGetAffectionDefinitions() {
+    return useQuery("get-affection-definitions", () => {
+        return graphQLClient.request(gql`
+        {
+            affectionDefinitions {
+                type
+                partNumber
+                itemNumber
+                name
+                text
+            }
+        }`);
+    });
+}
+
+export function useGetAffectionDefinition(partNumber, itemNumber) {
+    return useQuery(["get-affection-definition", partNumber, itemNumber], () => {
+        return graphQLClient.request(gql`
+        query affectionDefinition($partNumber: Int!, $itemNumber: Int!){
+            affectionDefinition (partNumber:$partNumber, itemNumber: $itemNumber){
+                name
+                type
+                partNumber
+                itemNumber
+                text
+                references {
+                    name
+                    type
+                    uri
+                }
+                descendants {
+                    name
+                    type
+                    uri
+              }
+            }
+        }`, {partNumber, itemNumber});
+    });
+}
+
+export function useGetDefinitions() {
+    return useQuery("get-definitions", () => {
+        return graphQLClient.request(gql`
+        {
+            definitions {
+                type
+                partNumber
+                itemNumber
+                name
+                text
+            }
+        }`);
+    });
+}
+
+export function useGetDefinition(partNumber, itemNumber) {
+    return useQuery(["get-definition", partNumber, itemNumber], () => {
+        return graphQLClient.request(gql`
+        query definition($partNumber: Int!, $itemNumber: Int!){
+            definition (partNumber:$partNumber, itemNumber: $itemNumber){
+                name
+                type
+                partNumber
+                itemNumber
+                text
+                references {
+                    name
+                    type
+                    uri
+                }
+                descendants {
+                    name
+                    type
+                    uri
+              }
+            }
+        }`, {partNumber, itemNumber});
+    });
+}
+
+export function useGetPostulates() {
+    return useQuery("get-postulates", () => {
+        return graphQLClient.request(gql`
+        {
+            postulates {
+                type
+                partNumber
+                itemNumber
+                name
+                text
+            }
+        }`);
+    });
+}
+
+export function useGetPostulate(partNumber, itemNumber) {
+    return useQuery(["get-postulate", partNumber, itemNumber], () => {
+        return graphQLClient.request(gql`
+        query postulate($partNumber: Int!, $itemNumber: Int!){
+            postulate (partNumber:$partNumber, itemNumber: $itemNumber){
+                name
+                type
+                partNumber
+                itemNumber
+                text
+                references {
+                    name
+                    type
+                    uri
+                }
+                descendants {
+                    name
+                    type
+                    uri
+              }
+            }
+        }`, {partNumber, itemNumber});
+    });
+}
+
 export function useGetPropositions() {
     return useQuery("get-propositions", () => {
         return graphQLClient.request(gql`
@@ -64,8 +184,26 @@ export function useGetProposition(partNumber, itemNumber) {
                     name
                     type
                     uri
-                }
+              }
             }
         }`, {partNumber, itemNumber});
+    });
+}
+
+export function useGetPreface(partNumber, itemNumber) {
+    return useQuery(["get-preface", partNumber, itemNumber], () => {
+        return graphQLClient.request(gql`
+        query preface($partNumber: Int!, $itemNumber: Int!){
+            preface (partNumber:$partNumber, itemNumber: $itemNumber){
+                type
+                name
+                text
+                references {
+                    name
+                    type
+                    uri
+                }
+            }
+        }`,{partNumber, itemNumber});
     });
 }
