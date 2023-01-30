@@ -1,6 +1,8 @@
 import React from "react";
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 
+import AxiomList from "./components/AxiomList";
+import Axiom from "./components/Axiom";
 import AffectionDefinitionList from "./components/AffectionDefinitionList";
 import AffectionDefinition from "./components/AffectionDefinition";
 import DefinitionList from "./components/DefinitionList";
@@ -20,6 +22,8 @@ export default function App() {
         <Layout>
             <Routes>
                 <Route exact path="/" element={<PropositionList/>} />
+                <Route exact path="/axioms" element={<AxiomList/>} />
+                <Route path="/axiom/:partNumber/:itemNumber" element={<Axiom/>} />
                 <Route exact path="/affection-definitions" element={<AffectionDefinitionList/>} />
                 <Route path="/affection-definition/:partNumber/:itemNumber" element={<AffectionDefinition/>} />
                 <Route exact path="/definitions" element={<DefinitionList/>} />

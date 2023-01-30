@@ -70,6 +70,46 @@ export function useGetAffectionDefinition(partNumber, itemNumber) {
     });
 }
 
+export function useGetAxioms() {
+    return useQuery("get-axioms", () => {
+        return graphQLClient.request(gql`
+        {
+            axioms {
+                type
+                partNumber
+                itemNumber
+                name
+                text
+            }
+        }`);
+    });
+}
+
+export function useGetAxiom(partNumber, itemNumber) {
+    return useQuery(["get-axiom", partNumber, itemNumber], () => {
+        return graphQLClient.request(gql`
+        query axiom($partNumber: Int!, $itemNumber: Int!){
+            axiom (partNumber:$partNumber, itemNumber: $itemNumber){
+                name
+                type
+                partNumber
+                itemNumber
+                text
+                references {
+                    name
+                    type
+                    uri
+                }
+                descendants {
+                    name
+                    type
+                    uri
+              }
+            }
+        }`, {partNumber, itemNumber});
+    });
+}
+
 export function useGetDefinitions() {
     return useQuery("get-definitions", () => {
         return graphQLClient.request(gql`
