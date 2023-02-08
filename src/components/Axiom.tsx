@@ -5,7 +5,7 @@ import SubItems from "./SubItems";
 
 export default function Axiom() {
     const {partNumber, itemNumber} = useParams();
-    const {data, error, isLoading, isSuccess} = useGetAxiom(partNumber, itemNumber);
+    const {data, error, isLoading, isSuccess} = useGetAxiom(Number(partNumber), Number(itemNumber));
 
     if (error) return <h1>Something went wrong!!!</h1>
     if (isLoading) return <h1>Loading...</h1>
@@ -14,13 +14,14 @@ export default function Axiom() {
     let references = axiom.references;
     let descendants = axiom.descendants;
 
-    return (
-        isSuccess && (
-            <article className="Article">
-                <h1>Partie {partNumber} - Axiom: {itemNumber}</h1>
-                <p>{axiom.text}</p>
-                { <SubItems references={references} descendants={descendants} /> }
-            </article>
-        )
-    )
+
+    if (isSuccess) {
+        return <article className="Article">
+            <h1>Partie: {partNumber} - Axiom: {itemNumber}</h1>
+            <p>{axiom.text}</p>
+            {<SubItems references={references} descendants={descendants}/>}
+        </article>
+    } else {
+        return <h1>Loading...</h1>
+    }
 }

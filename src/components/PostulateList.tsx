@@ -2,8 +2,13 @@ import React from "react";
 
 import {useGetPostulates} from "../useRequest";
 import {Link} from "react-router-dom";
+import {IEthicItem} from "../EthicTypes";
 
-const PostulateListItem = ({postulate}) => {
+interface IPostulateListItem {
+    postulate: IEthicItem;
+}
+
+const PostulateListItem = ({postulate}: IPostulateListItem) => {
     const {partNumber, itemNumber, text} = postulate;
 
     return (
@@ -24,7 +29,7 @@ export default function PostulateList() {
     return (
         <div>{
             isSuccess && data.postulates.map(
-                (postulate) => <PostulateListItem key={postulate.name} postulate={postulate}/>
+                (postulate: IEthicItem) => <PostulateListItem key={postulate.name} postulate={postulate}/>
             )
         }</div>
     )

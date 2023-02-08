@@ -2,8 +2,13 @@ import React from "react";
 
 import {useGetAffectionDefinitions} from "../useRequest";
 import {Link} from "react-router-dom";
+import {IEthicItem} from "../EthicTypes";
 
-const AffectionDefinitionListItem = ({affectionDefinition}) => {
+interface IAffectionDefinitionListItem {
+    affectionDefinition: IEthicItem;
+}
+
+const AffectionDefinitionListItem = ({affectionDefinition}:IAffectionDefinitionListItem) => {
     const {partNumber, itemNumber, text} = affectionDefinition;
 
     return (
@@ -24,7 +29,7 @@ export default function AffectionDefinitionList() {
     return (
         <div>{
             isSuccess && data.affectionDefinitions.map(
-                (affectionDefinition) => <AffectionDefinitionListItem key={affectionDefinition.name} affectionDefinition={affectionDefinition}/>
+                (affectionDefinition:IEthicItem) => <AffectionDefinitionListItem key={affectionDefinition.name} affectionDefinition={affectionDefinition}/>
             )
         }</div>
     )

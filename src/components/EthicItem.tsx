@@ -1,26 +1,37 @@
+import React, {ReactElement} from "react";
 import {useState} from "react";
 import {useParams} from "react-router-dom";
 import {useGetItem} from "../useRequest";
 
-export default function EthicItem({uri}) {
-    const [openItems, setOpenItems] = useState([]);
-    const {name} = useParams();
+type EthicItemType = {
+    name: string;
+    uri: string;
+};
+
+type EthicItemParams = {
+    name?: string;
+    uri?: string;
+};
+
+export default function EthicItem({uri}: EthicItemParams) :ReactElement {
+    const [openItems, setOpenItems] = useState<string[]>([]);
+    const {name} = useParams<EthicItemParams>();
     let uriVariable = null != uri ? uri : "http://ethica.graph.ql/" + name;
     const {data, error, isLoading, isSuccess} = useGetItem(uriVariable);
 
-    const openItem = (name) => {
+    const openItem = (name: string) => {
         const newItems = openItems.concat([name]);
         setOpenItems(newItems);
     };
 
-    const closeItem = (name) => {
+    const closeItem = (name: string) => {
         const newItems = openItems.filter(
             (item) => item !== name
         );
         setOpenItems(newItems);
     };
 
-    const displaySubItem = (subItem) => {
+    const displaySubItem = (subItem: EthicItemType) => {
         return (
             openItems.includes(subItem.name) ? (
                 <div>
@@ -37,7 +48,7 @@ export default function EthicItem({uri}) {
         )
     };
 
-    const displaySubItems = (subItems) => {
+    const displaySubItems = (subItems: [EthicItemType]) => {
         return (
             (subItems != null) &&
             <div>
@@ -54,15 +65,15 @@ export default function EthicItem({uri}) {
     let references = ethicItem.references;
     let descendants = ethicItem.descendants;
 
-    return (
-        isSuccess && (
-            <article className="Article">
-                <h3>{ethicItem.name}</h3>
-                <p>{ethicItem.type}</p>
-                <p>{ethicItem.text}</p>
-                {displaySubItems(references)}
-                {displaySubItems(descendants)}
-            </article>
-        )
-    )
+    if (isSuccess){
+        return <article className="Article">
+            <h3>{ethicItem.name}</h3>
+            <p>{ethicItem.type}</p>
+            <p>{ethicItem.text}</p>
+            {displaySubItems(references)}
+            {displaySubItems(descendants)}
+        </article>
+    } else {
+        return <article className="Article"><h3>Loading...</h3></article>
+    }
 }

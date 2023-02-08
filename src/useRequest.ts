@@ -7,7 +7,7 @@ const graphQLClient = new GraphQLClient(API_URL, {
     headers: {Authorization: `Basic ${process.env.REACT_APP_API_KEY}`}
 });
 
-export function useGetItem(uri) {
+export function useGetItem(uri: string) {
     return useQuery(["item", uri], () => {
         return graphQLClient.request(gql`
         query ethicItem($uri: String!){
@@ -45,7 +45,7 @@ export function useGetAffectionDefinitions() {
     });
 }
 
-export function useGetAffectionDefinition(partNumber, itemNumber) {
+export function useGetAffectionDefinition(partNumber: number, itemNumber: number) {
     return useQuery(["get-affection-definition", partNumber, itemNumber], () => {
         return graphQLClient.request(gql`
         query affectionDefinition($partNumber: Int!, $itemNumber: Int!){
@@ -85,7 +85,7 @@ export function useGetAxioms() {
     });
 }
 
-export function useGetAxiom(partNumber, itemNumber) {
+export function useGetAxiom(partNumber: number, itemNumber: number) {
     return useQuery(["get-axiom", partNumber, itemNumber], () => {
         return graphQLClient.request(gql`
         query axiom($partNumber: Int!, $itemNumber: Int!){
@@ -125,7 +125,7 @@ export function useGetDefinitions() {
     });
 }
 
-export function useGetDefinition(partNumber, itemNumber) {
+export function useGetDefinition(partNumber: number, itemNumber: number) {
     return useQuery(["get-definition", partNumber, itemNumber], () => {
         return graphQLClient.request(gql`
         query definition($partNumber: Int!, $itemNumber: Int!){
@@ -165,7 +165,7 @@ export function useGetPostulates() {
     });
 }
 
-export function useGetPostulate(partNumber, itemNumber) {
+export function useGetPostulate(partNumber: number, itemNumber: number) {
     return useQuery(["get-postulate", partNumber, itemNumber], () => {
         return graphQLClient.request(gql`
         query postulate($partNumber: Int!, $itemNumber: Int!){
@@ -205,7 +205,7 @@ export function useGetPropositions() {
     });
 }
 
-export function useGetProposition(partNumber, itemNumber) {
+export function useGetProposition(partNumber: number, itemNumber: number) {
     return useQuery(["get-proposition", partNumber, itemNumber], () => {
         return graphQLClient.request(gql`
         query proposition($partNumber: Int!, $itemNumber: Int!){
@@ -230,7 +230,7 @@ export function useGetProposition(partNumber, itemNumber) {
     });
 }
 
-export function useGetPreface(partNumber, itemNumber) {
+export function useGetPreface(partNumber: number, itemNumber: number) {
     return useQuery(["get-preface", partNumber, itemNumber], () => {
         return graphQLClient.request(gql`
         query preface($partNumber: Int!, $itemNumber: Int!){

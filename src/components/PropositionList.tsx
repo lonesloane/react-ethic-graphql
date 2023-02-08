@@ -2,8 +2,13 @@ import React from "react";
 
 import {useGetPropositions} from "../useRequest";
 import {Link} from "react-router-dom";
+import {IEthicItem} from "../EthicTypes";
 
-const PropositionListItem = ({proposition}) => {
+interface IPropositionListItem {
+    proposition: IEthicItem;
+}
+
+const PropositionListItem = ({proposition}: IPropositionListItem) => {
     const {partNumber, itemNumber, text} = proposition;
 
     return (
@@ -24,7 +29,7 @@ export default function PropositionList() {
     return (
         <div>{
             isSuccess && data.propositions.map(
-                (proposition) => <PropositionListItem key={proposition.name} proposition={proposition}/>
+                (proposition: IEthicItem) => <PropositionListItem key={proposition.name} proposition={proposition}/>
             )
         }</div>
     )

@@ -5,7 +5,7 @@ import SubItems from "./SubItems";
 
 export default function Proposition() {
     const {partNumber, itemNumber} = useParams();
-    const {data, error, isLoading, isSuccess} = useGetProposition(partNumber, itemNumber);
+    const {data, error, isLoading, isSuccess} = useGetProposition(Number(partNumber), Number(itemNumber));
 
     if (error) return <h1>Something went wrong!!!</h1>
     if (isLoading) return <h1>Loading...</h1>
@@ -14,13 +14,13 @@ export default function Proposition() {
     let references = proposition.references;
     let descendants = proposition.descendants;
 
-    return (
-        isSuccess && (
-            <article className="Article">
-                <h1>Partie {partNumber} - Proposition: {itemNumber}</h1>
-                <p>{proposition.text}</p>
-                { <SubItems references={references} descendants={descendants} /> }
-            </article>
-        )
-    )
+    if (isSuccess) {
+        return <article className="Article">
+            <h1>Partie {partNumber} - Proposition: {itemNumber}</h1>
+            <p>{proposition.text}</p>
+            {<SubItems references={references} descendants={descendants}/>}
+        </article>
+    } else {
+        return <h1>Loading...</h1>
+    }
 }

@@ -2,8 +2,13 @@ import React from "react";
 
 import {useGetDefinitions} from "../useRequest";
 import {Link} from "react-router-dom";
+import {IEthicItem} from "../EthicTypes";
 
-const DefinitionListItem = ({definition}) => {
+interface IDefinitionListItem {
+    definition: IEthicItem;
+}
+
+const DefinitionListItem = ({definition}: IDefinitionListItem) => {
     const {partNumber, itemNumber, text} = definition;
 
     return (
@@ -24,7 +29,7 @@ export default function DefinitionList() {
     return (
         <div>{
             isSuccess && data.definitions.map(
-                (definition) => <DefinitionListItem key={definition.name} definition={definition}/>
+                (definition: IEthicItem) => <DefinitionListItem key={definition.name} definition={definition}/>
             )
         }</div>
     )

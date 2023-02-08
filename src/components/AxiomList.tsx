@@ -1,9 +1,15 @@
+
 import React from "react";
 
 import {useGetAxioms} from "../useRequest";
 import {Link} from "react-router-dom";
+import {IEthicItem} from "../EthicTypes";
 
-const AxiomListItem = ({axiom}) => {
+interface IAxiomListItem {
+    axiom: IEthicItem;
+}
+
+const AxiomListItem = ({axiom}: IAxiomListItem) => {
     const {partNumber, itemNumber, text} = axiom;
 
     return (
@@ -24,7 +30,7 @@ export default function AxiomList() {
     return (
         <div>{
             isSuccess && data.axioms.map(
-                (axiom) => <AxiomListItem key={axiom.name} axiom={axiom}/>
+                (axiom:IEthicItem) => <AxiomListItem key={axiom.name} axiom={axiom}/>
             )
         }</div>
     )
