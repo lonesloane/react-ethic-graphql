@@ -2,6 +2,7 @@ import React from "react";
 import {useParams} from "react-router-dom";
 import {useGetPostulate} from "../useRequest";
 import SubItems from "./SubItems";
+import {IEthicItem} from "../EthicTypes";
 
 export default function Postulate() {
     const {partNumber, itemNumber} = useParams();
@@ -10,7 +11,7 @@ export default function Postulate() {
     if (error) return <h1>Something went wrong!!!</h1>
     if (isLoading) return <h1>Loading...</h1>
 
-    let postulate = data.postulate;
+    let postulate = data.postulate as IEthicItem;
     let references = postulate.references;
     let descendants = postulate.descendants;
 

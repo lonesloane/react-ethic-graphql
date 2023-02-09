@@ -2,6 +2,7 @@ import React from "react";
 import {useParams} from "react-router-dom";
 import {useGetDefinition} from "../useRequest";
 import SubItems from "./SubItems";
+import {IEthicItem} from "../EthicTypes";
 
 export default function Definition() {
     const {partNumber, itemNumber} = useParams();
@@ -10,7 +11,7 @@ export default function Definition() {
     if (error) return <h1>Something went wrong!!!</h1>
     if (isLoading) return <h1>Loading...</h1>
 
-    let definition = data.definition;
+    let definition = data.definition as IEthicItem;
     let references = definition.references;
     let descendants = definition.descendants;
 

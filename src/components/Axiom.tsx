@@ -2,6 +2,7 @@ import React from "react";
 import {useParams} from "react-router-dom";
 import {useGetAxiom} from "../useRequest";
 import SubItems from "./SubItems";
+import {IEthicItem} from "../EthicTypes";
 
 export default function Axiom() {
     const {partNumber, itemNumber} = useParams();
@@ -10,7 +11,7 @@ export default function Axiom() {
     if (error) return <h1>Something went wrong!!!</h1>
     if (isLoading) return <h1>Loading...</h1>
 
-    let axiom = data.axiom;
+    let axiom = data.axiom as IEthicItem;
     let references = axiom.references;
     let descendants = axiom.descendants;
 

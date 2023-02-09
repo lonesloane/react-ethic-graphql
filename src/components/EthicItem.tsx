@@ -2,11 +2,7 @@ import React, {ReactElement} from "react";
 import {useState} from "react";
 import {useParams} from "react-router-dom";
 import {useGetItem} from "../useRequest";
-
-type EthicItemType = {
-    name: string;
-    uri: string;
-};
+import {IEthicItem, ISubItem} from "../EthicTypes";
 
 type EthicItemParams = {
     name?: string;
@@ -31,7 +27,7 @@ export default function EthicItem({uri}: EthicItemParams) :ReactElement {
         setOpenItems(newItems);
     };
 
-    const displaySubItem = (subItem: EthicItemType) => {
+    const displaySubItem = (subItem: ISubItem) => {
         return (
             openItems.includes(subItem.name) ? (
                 <div>
@@ -48,7 +44,7 @@ export default function EthicItem({uri}: EthicItemParams) :ReactElement {
         )
     };
 
-    const displaySubItems = (subItems: [EthicItemType]) => {
+    const displaySubItems = (subItems: ISubItem | [ISubItem]) => {
         return (
             (subItems != null) &&
             <div>
@@ -61,7 +57,7 @@ export default function EthicItem({uri}: EthicItemParams) :ReactElement {
     if (error) return <h1>Something went wrong!!!</h1>
     if (isLoading) return <h1>Loading...</h1>
 
-    let ethicItem = data.ethicItem;
+    let ethicItem = data.ethicItem as IEthicItem;
     let references = ethicItem.references;
     let descendants = ethicItem.descendants;
 

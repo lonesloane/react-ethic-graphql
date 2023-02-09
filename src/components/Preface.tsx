@@ -2,6 +2,7 @@ import React from "react";
 import {useGetPreface} from "../useRequest";
 import {useParams} from "react-router-dom";
 import EthicItem from "./EthicItem";
+import {IEthicItem} from "../EthicTypes";
 
 export default function Preface() {
     const {partNumber, itemNumber} = useParams();
@@ -10,7 +11,7 @@ export default function Preface() {
     if (error) return <h1>Something went wrong!!!</h1>
     if (isLoading) return <h1>Loading...</h1>
 
-    let preface = data.preface;
+    let preface = data.preface as IEthicItem;
     let references = preface.references;
 
     if (isSuccess) {

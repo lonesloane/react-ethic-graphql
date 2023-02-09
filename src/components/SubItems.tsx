@@ -1,22 +1,19 @@
 import React from "react";
 import EthicItem from "./EthicItem";
-
-type Item = {
-    uri: string;
-};
+import {ISubItem} from "../EthicTypes";
 
 type SubItemParams = {
-    references: [Item];
-    descendants: [Item];
+    references: ISubItem | [ISubItem];
+    descendants: ISubItem | [ISubItem];
 };
 
 export default function SubItems({references, descendants}: SubItemParams) {
 
-    const displaySubItem = (subItem: Item) => {
+    const displaySubItem = (subItem: ISubItem) => {
         return (<EthicItem key={subItem.uri} uri={subItem.uri}/>)
     };
 
-    const displaySubItems = (subItems: [Item]) => {
+    const displaySubItems = (subItems: ISubItem | [ISubItem]) => {
         return (
             (subItems != null) &&
             <div>

@@ -2,6 +2,7 @@ import React from "react";
 import {useParams} from "react-router-dom";
 import {useGetAffectionDefinition} from "../useRequest";
 import SubItems from "./SubItems";
+import {IEthicItem} from "../EthicTypes";
 
 type EthicItemParams = {
     partNumber: string;
@@ -15,7 +16,7 @@ export default function AffectionDefinition() {
     if (error) return <h1>Something went wrong!!!</h1>
     if (isLoading) return <h1>Loading...</h1>
 
-    let affectionDefinition = data.affectionDefinition;
+    let affectionDefinition = data.affectionDefinition as IEthicItem;
     let references = affectionDefinition.references;
     let descendants = affectionDefinition.descendants;
 
