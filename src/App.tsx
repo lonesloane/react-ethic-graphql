@@ -14,6 +14,7 @@ import Proposition from "./components/Proposition";
 import EthicItem from "./components/EthicItem";
 import Preface from "./components/Preface";
 import Layout from "./components/Layout";
+import Home from "./components/Home";
 
 export default function App() {
 
@@ -21,7 +22,7 @@ export default function App() {
       <Router>
         <Layout>
             <Routes>
-                <Route path="/" element={<PropositionList/>} />
+                <Route path="/" element={<Home/>} />
                 <Route path="/axioms" element={<AxiomList/>} />
                 <Route path="/axiom/:partNumber/:itemNumber" element={<Axiom/>} />
                 <Route path="/affection-definitions" element={<AffectionDefinitionList/>} />

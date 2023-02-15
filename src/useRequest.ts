@@ -40,6 +40,12 @@ export function useGetAffectionDefinitions() {
                 itemNumber
                 name
                 text
+                references {
+                    uri
+                }
+                descendants {
+                    uri
+                }
             }
         }`);
     });
@@ -80,6 +86,12 @@ export function useGetAxioms() {
                 itemNumber
                 name
                 text
+                references {
+                    uri
+                }
+                descendants {
+                    uri
+                }
             }
         }`);
     });
@@ -160,6 +172,12 @@ export function useGetPostulates() {
                 itemNumber
                 name
                 text
+                references {
+                    uri
+                }
+                descendants {
+                    uri
+                }
             }
         }`);
     });
@@ -200,6 +218,12 @@ export function useGetPropositions() {
                 itemNumber
                 name
                 text
+                references {
+                    uri
+                }
+                descendants {
+                    uri
+                }
             }
         }`);
     });
