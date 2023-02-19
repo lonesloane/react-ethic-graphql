@@ -15,6 +15,7 @@ import EthicItem from "./components/EthicItem";
 import Preface from "./components/Preface";
 import Layout from "./components/Layout";
 import Home from "./components/Home";
+import PrefaceList from "./components/PrefaceList";
 
 export default function App() {
 
@@ -31,6 +32,7 @@ export default function App() {
                 <Route path="/definition/:partNumber/:itemNumber" element={<Definition/>} />
                 <Route path="/postulates" element={<PostulateList/>} />
                 <Route path="/postulate/:partNumber/:itemNumber" element={<Postulate/>} />
+                <Route path="/prefaces" element={<PrefaceList/>} />
                 <Route path="/preface/:partNumber/:itemNumber" element={<Preface/>} />
                 <Route path="/propositions" element={<PropositionList/>} />
                 <Route path="/proposition/:partNumber/:itemNumber" element={<Proposition/>} />

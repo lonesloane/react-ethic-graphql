@@ -1,100 +1,163 @@
-import React, {useState} from "react";
-import {ReactElement} from "react-markdown/lib/react-markdown";
-import {
-    Box,
-    Divider,
-    Drawer,
-    IconButton, ListItemButton,
-    ListItemIcon,
-    Typography
-} from "@mui/material";
+import * as React from 'react';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import CssBaseline from '@mui/material/CssBaseline';
+import Divider from '@mui/material/Divider';
+import Drawer from '@mui/material/Drawer';
+import IconButton from '@mui/material/IconButton';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
+import MenuIcon from '@mui/icons-material/Menu';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
 import {Link} from "react-router-dom";
-
-import MenuIcon from "@mui/icons-material/Menu";
-import CloseIcon from "@mui/icons-material/Close";
-import DoubleArrowTwoToneIcon from '@mui/icons-material/DoubleArrowTwoTone';
+import {Fab, Fade, ListItemIcon, useScrollTrigger} from "@mui/material";
+import DoubleArrowTwoToneIcon from "@mui/icons-material/DoubleArrowTwoTone";
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import {ReactElement} from "react-markdown/lib/react-markdown";
 
 interface IReactElement {
     children: ReactElement;
 }
 
-export default function Layout({children}: IReactElement) {
-    const [open, setState] = useState(true);
+interface Props {
+    children: React.ReactElement;
+}
 
-    // @ts-ignore
-    const toggleDrawer = (open) => (event) => {
-        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-            return;
+function ScrollTop(props: Props) {
+    const { children } = props;
+    const trigger = useScrollTrigger({
+        disableHysteresis: true,
+        threshold: 100,
+    });
+
+    const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
+        const anchor = (
+            (event.target as HTMLDivElement).ownerDocument || document
+        ).querySelector('#back-to-top-anchor');
+
+        if (anchor) {
+            anchor.scrollIntoView({
+                block: 'center',
+            });
         }
-        setState(open);
+    };
+    return (
+        <Fade in={trigger}>
+            <Box
+                onClick={handleClick}
+                role="presentation"
+                sx={{ position: 'fixed', bottom: 16, right: 16 }}
+            >
+                {children}
+            </Box>
+        </Fade>
+    );
+}
+
+export default function Layout({children}: IReactElement) {
+    const [menuOpen, setMenuOpen] = React.useState(false);
+
+    const handleDrawerToggle = () => {
+        setMenuOpen((prevState) => !prevState);
     };
 
-    return (
-        <>
-            <IconButton
-                edge="start"
-                color="inherit"
-                aria-label="open drawer"
-                onClick={toggleDrawer(true)}
-            >
-                <MenuIcon/>
-            </IconButton>
-            <header className="Header">
+    const drawer = (
+        <Box onClick={handleDrawerToggle} sx={{textAlign: 'center'}}>
+            <Link to="/">
                 <Typography variant="h6">
-                    <Link to="/">SpinoGraphQL</Link>
+                    SpinoGraphQL
                 </Typography>
-            </header>
-            <main className="Container">{children}</main>
-            <Drawer
-                anchor="left"
-                open={open}
-                onClose={toggleDrawer(false)}
-            >
-                <Box>
+            </Link>
+            <Divider/>
+            <List>
+                <ListItem key="prefaces" disablePadding>
+                    <Link to="/prefaces">
+                        <ListItemButton>
+                            <ListItemIcon><DoubleArrowTwoToneIcon/></ListItemIcon>
+                            <ListItemText>Prefaces</ListItemText>
+                        </ListItemButton>
+                    </Link>
+                </ListItem>
+                <ListItem key="affectionDefinitions" disablePadding>
+                    <Link to="/affection-definitions">
+                        <ListItemButton>
+                            <ListItemIcon><DoubleArrowTwoToneIcon/></ListItemIcon>
+                            <ListItemText>Affection Definitions</ListItemText>
+                        </ListItemButton>
+                    </Link>
+                </ListItem>
+                <ListItem key="Axioms" disablePadding>
+                    <Link to="/axioms">
+                        <ListItemButton>
+                            <ListItemIcon><DoubleArrowTwoToneIcon/></ListItemIcon>
+                            <ListItemText>Axioms</ListItemText>
+                        </ListItemButton>
+                    </Link>
+                </ListItem>
+                <ListItem key="Definitions" disablePadding>
+                    <Link to="/definitions">
+                        <ListItemButton>
+                            <ListItemIcon><DoubleArrowTwoToneIcon/></ListItemIcon>
+                            <ListItemText>Definitions</ListItemText>
+                        </ListItemButton>
+                    </Link>
+                </ListItem>
+                <ListItem key="Postulates" disablePadding>
+                    <Link to="/postulates">
+                        <ListItemButton>
+                            <ListItemIcon><DoubleArrowTwoToneIcon/></ListItemIcon>
+                            <ListItemText>Postulates</ListItemText>
+                        </ListItemButton>
+                    </Link>
+                </ListItem>
+                <ListItem key="Propositions" disablePadding>
+                    <Link to="/propositions">
+                        <ListItemButton>
+                            <ListItemIcon><DoubleArrowTwoToneIcon/></ListItemIcon>
+                            <ListItemText>Propositions</ListItemText>
+                        </ListItemButton>
+                    </Link>
+                </ListItem>
+            </List>
+        </Box>
+    );
 
-                    <IconButton>
-                        <CloseIcon onClick={toggleDrawer(false)}/>
+    return (
+        <Box>
+            <CssBaseline/>
+            <AppBar component="nav">
+                <Toolbar>
+                    <IconButton
+                        color="inherit"
+                        aria-label="open drawer"
+                        edge="start"
+                        onClick={handleDrawerToggle}
+                    >
+                        <MenuIcon/>
                     </IconButton>
-
-                    <Divider/>
-
-                    <Box>
-                        <ListItemButton>
-                            <Link to="/affection-definitions">
-                                <ListItemIcon><DoubleArrowTwoToneIcon/></ListItemIcon>
-                                Affection Definitions
-                            </Link>
-                        </ListItemButton>
-                        <ListItemButton>
-                            <Link to="/axioms">
-                                <ListItemIcon><DoubleArrowTwoToneIcon/></ListItemIcon>
-                                Axioms
-                            </Link>
-                        </ListItemButton>
-                        <ListItemButton>
-                            <Link to="/definitions">
-                                <ListItemIcon><DoubleArrowTwoToneIcon/></ListItemIcon>
-                                Definitions
-                            </Link>
-                        </ListItemButton>
-                        <ListItemButton>
-                            <Link to="/postulates">
-                                <ListItemIcon><DoubleArrowTwoToneIcon/></ListItemIcon>
-                                Postulates
-                            </Link>
-                        </ListItemButton>
-                        <ListItemButton>
-                            <Link to="/propositions">
-                                <ListItemIcon><DoubleArrowTwoToneIcon/></ListItemIcon>
-                                Propositions
-                            </Link>
-                        </ListItemButton>
-                    </Box>
-
-                </Box>
-
-            </Drawer>
-
-        </>
+                </Toolbar>
+            </AppBar>
+            <Box component="nav">
+                <Drawer
+                    variant="temporary"
+                    open={menuOpen}
+                    onClose={handleDrawerToggle}
+                >
+                    {drawer}
+                </Drawer>
+            </Box>
+            <Box component="main">
+                <Toolbar id="back-to-top-anchor" />
+                <main className="Container">{children}</main>
+            </Box>
+            <ScrollTop {...children}>
+                <Fab size="small" aria-label="scroll back to top">
+                    <KeyboardArrowUpIcon />
+                </Fab>
+            </ScrollTop>
+        </Box>
     );
 }

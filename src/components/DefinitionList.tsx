@@ -21,12 +21,15 @@ const DefinitionListTitle = ({definition}: IDefinitionListItem) => {
 };
 
 const DefinitionListItem = ({definition}: IDefinitionListItem) => {
-    const {partNumber, itemNumber, text} = definition;
+    const {partNumber, itemNumber, text, references, descendants} = definition;
 
     return (
         <Typography>
             <p>{text}</p>
-            <Link to={`/definition/${partNumber}/${itemNumber}`}>Read more &rarr;</Link>
+            {
+                (references || descendants) &&
+                <Link to={`/definition/${partNumber}/${itemNumber}`}>Read more &rarr;</Link>
+            }
         </Typography>
     )
 };

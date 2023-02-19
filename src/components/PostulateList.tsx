@@ -21,12 +21,15 @@ const PostulateListTitle = ({postulate}: IPostulateListItem) => {
 };
 
 const PostulateListItem = ({postulate}: IPostulateListItem) => {
-    const {partNumber, itemNumber, text} = postulate;
+    const {partNumber, itemNumber, text, references, descendants} = postulate;
 
     return (
         <Typography>
             <p>{text}</p>
-            <Link to={`/postulate/${partNumber}/${itemNumber}`}>Read more &rarr;</Link>
+            {
+                (references || descendants) &&
+                <Link to={`/postulate/${partNumber}/${itemNumber}`}>Read more &rarr;</Link>
+            }
         </Typography>
     )
 };

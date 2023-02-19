@@ -21,12 +21,15 @@ const PropositionListTitle = ({proposition}: IPropositionListItem) => {
 };
 
 const PropositionListItem = ({proposition}: IPropositionListItem) => {
-    const {partNumber, itemNumber, text} = proposition;
+    const {partNumber, itemNumber, text, references, descendants} = proposition;
 
     return (
         <Typography>
             <p>{text}</p>
-            <Link to={`/proposition/${partNumber}/${itemNumber}`}>Read more &rarr;</Link>
+            {
+                (references || descendants) &&
+                <Link to={`/proposition/${partNumber}/${itemNumber}`}>Read more &rarr;</Link>
+            }
         </Typography>
     )
 };

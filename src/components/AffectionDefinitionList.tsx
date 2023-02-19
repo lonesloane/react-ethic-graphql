@@ -21,12 +21,15 @@ const AffectionDefinitionListTitle = ({affectionDefinition}: IAffectionDefinitio
 };
 
 const AffectionDefinitionListItem = ({affectionDefinition}: IAffectionDefinitionListItem) => {
-    const {partNumber, itemNumber, text} = affectionDefinition;
+    const {partNumber, itemNumber, text, references, descendants} = affectionDefinition;
 
     return (
         <Typography>
             <p>{text}</p>
-            <Link to={`/affection-definition/${partNumber}/${itemNumber}`}>Read more &rarr;</Link>
+            {
+                (references || descendants) &&
+                <Link to={`/affection-definition/${partNumber}/${itemNumber}`}>Read more &rarr;</Link>
+            }
         </Typography>
     )
 };
@@ -54,10 +57,12 @@ export default function AffectionDefinitionList() {
                             onChange={accChange(affectionDefinition.name)}
                         >
                             <AccordionSummary expandIcon={<ArrowDropDownIcon/>}>
-                                <AffectionDefinitionListTitle key={affectionDefinition.name} affectionDefinition={affectionDefinition}/>
+                                <AffectionDefinitionListTitle key={affectionDefinition.name}
+                                                              affectionDefinition={affectionDefinition}/>
                             </AccordionSummary>
                             <AccordionDetails>
-                                <AffectionDefinitionListItem key={affectionDefinition.name} affectionDefinition={affectionDefinition}/>
+                                <AffectionDefinitionListItem key={affectionDefinition.name}
+                                                             affectionDefinition={affectionDefinition}/>
                             </AccordionDetails>
                         </Accordion>
                 )

@@ -6,6 +6,8 @@ export interface IEthicItem {
     text: string;
     references: ISubItem | [ISubItem];
     descendants: ISubItem | [ISubItem];
+    previous: ISubItem;
+    next: ISubItem;
 }
 
 export interface ISubItem {

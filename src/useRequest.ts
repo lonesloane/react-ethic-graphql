@@ -70,7 +70,13 @@ export function useGetAffectionDefinition(partNumber: number, itemNumber: number
                     name
                     type
                     uri
-              }
+                }
+                previous {
+                    uri
+                }
+                next {
+                    uri
+                }
             }
         }`, {partNumber, itemNumber});
     });
@@ -116,7 +122,13 @@ export function useGetAxiom(partNumber: number, itemNumber: number) {
                     name
                     type
                     uri
-              }
+                }
+                previous {
+                    uri
+                }
+                next {
+                    uri
+                }
             }
         }`, {partNumber, itemNumber});
     });
@@ -132,6 +144,12 @@ export function useGetDefinitions() {
                 itemNumber
                 name
                 text
+                references {
+                    uri
+                }
+                descendants {
+                    uri
+                }
             }
         }`);
     });
@@ -156,7 +174,13 @@ export function useGetDefinition(partNumber: number, itemNumber: number) {
                     name
                     type
                     uri
-              }
+                }
+                previous {
+                    uri
+                }
+                next {
+                    uri
+                }
             }
         }`, {partNumber, itemNumber});
     });
@@ -202,7 +226,13 @@ export function useGetPostulate(partNumber: number, itemNumber: number) {
                     name
                     type
                     uri
-              }
+                }
+                previous {
+                    uri
+                }
+                next {
+                    uri
+                }
             }
         }`, {partNumber, itemNumber});
     });
@@ -248,9 +278,36 @@ export function useGetProposition(partNumber: number, itemNumber: number) {
                     name
                     type
                     uri
-              }
+                }
+                previous {
+                    uri
+                }
+                next {
+                    uri
+                }
             }
         }`, {partNumber, itemNumber});
+    });
+}
+
+export function useGetPrefaces() {
+    return useQuery("get-prefaces", () => {
+        return graphQLClient.request(gql`
+        {
+            prefaces {
+                type
+                partNumber
+                itemNumber
+                name
+                text
+                references {
+                    uri
+                }
+                descendants {
+                    uri
+                }
+            }
+        }`);
     });
 }
 
@@ -267,7 +324,13 @@ export function useGetPreface(partNumber: number, itemNumber: number) {
                     type
                     uri
                 }
+                previous {
+                    uri
+                }
+                next {
+                    uri
+                }
             }
-        }`,{partNumber, itemNumber});
+        }`, {partNumber, itemNumber});
     });
 }
